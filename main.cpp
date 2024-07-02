@@ -1,4 +1,4 @@
-// boj 1929 소수 구하기
+// boj 9012 괄호
 #pragma GCC optimize("O3")  //
 
 #include <bits/stdc++.h>
@@ -13,27 +13,32 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int M, N;
-    cin >> M >> N;
+    int T;
+    cin >> T;
 
-    vector<int> prime(N + 1, 1);
-    prime[0] = prime[1] = 0;
-
-    // 에라토스테네스의 체
-    for (int i = 2; i <= N; i++)
-    {
-        if (prime[i] == 0)  // 소수가 아님
-            continue;
-        for (int j = i * 2; j <= N; j += i)
-            prime[j] = 0;
+    for (int i = 0; i < T; i++) {
+        string str;
+        cin >> str;
+        stack<char> s;
+        bool flag = true;
+        for (int j = 0; j < str.size(); j++) {
+            if (str[j] == '(') {
+                s.push(str[j]);
+            } else {
+                if (s.empty()) {
+                    flag = false;
+                    break;
+                }
+                s.pop();
+            }
+        }
+        if (!s.empty()) {
+            flag = false;
+        }
+        if (flag) {
+            cout << "YES" << endl;
+        } else {
+            cout << "NO" << endl;
+        }
     }
-
-    // 소수 출력
-    for (int i = M; i <= N; i++)
-    {
-        if (prime[i] == 1)
-            cout << i << endl;
-    }
-    //
-    //
 }
