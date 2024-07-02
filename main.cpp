@@ -1,4 +1,4 @@
-// boj 10828 스택
+// boj 1929 소수 구하기
 #pragma GCC optimize("O3")  //
 
 #include <bits/stdc++.h>
@@ -13,35 +13,25 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int N;
-    cin >> N;
-    stack<int> s;
-    while (N--) {
-        string cmd;
-        cin >> cmd;
-        if (cmd == "push") {
-            int num;
-            cin >> num;
-            s.push(num);
-        } else if (cmd == "pop") {
-            if (s.empty())
-                cout << -1 << endl;
-            else {
-                cout << s.top() << endl;
-                s.pop();
-            }
-        } else if (cmd == "size") {
-            cout << s.size() << endl;
-        } else if (cmd == "empty") {
-            if (s.empty())
-                cout << 1 << endl;
-            else
-                cout << 0 << endl;
-        } else if (cmd == "top") {
-            if (s.empty())
-                cout << -1 << endl;
-            else
-                cout << s.top() << endl;
-        }
+    int M, N;
+    cin >> M >> N;
+
+    vector<int> prime(N + 1, 1);
+    prime[0] = prime[1] = 0;
+
+    // 에라토스테네스의 체
+    for (int i = 2; i <= N; i++)
+    {
+        if (prime[i] == 0)  // 소수가 아님
+            continue;
+        for (int j = i * 2; j <= N; j += i)
+            prime[j] = 0;
+    }
+
+    // 소수 출력
+    for (int i = M; i <= N; i++)
+    {
+        if (prime[i] == 1)
+            cout << i << endl;
     }
 }
