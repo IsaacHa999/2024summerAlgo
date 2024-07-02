@@ -34,4 +34,5 @@ int main()
         if (prime[i] == 1)
             cout << i << endl;
     }
+    //
 }
