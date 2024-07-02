@@ -1,4 +1,4 @@
-// boj 9012 괄호
+// boj 10773 제로
 #pragma GCC optimize("O3")  //
 
 #include <bits/stdc++.h>
@@ -13,32 +13,26 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int T;
-    cin >> T;
+    int K;
+    stack<int> s;
+    int sum = 0;
 
-    for (int i = 0; i < T; i++) {
-        string str;
-        cin >> str;
-        stack<char> s;
-        bool flag = true;
-        for (int j = 0; j < str.size(); j++) {
-            if (str[j] == '(') {
-                s.push(str[j]);
-            } else {
-                if (s.empty()) {
-                    flag = false;
-                    break;
-                }
-                s.pop();
-            }
-        }
-        if (!s.empty()) {
-            flag = false;
-        }
-        if (flag) {
-            cout << "YES" << endl;
+    cin >> K;
+
+    for (int i = 0; i < K; i++) {
+        int num;
+        cin >> num;
+        if (num == 0) {
+            s.pop();
         } else {
-            cout << "NO" << endl;
+            s.push(num);
         }
     }
+
+    // 합 출력
+    for (int i = 0; !s.empty(); i++) {
+        sum += s.top();
+        s.pop();
+    }
+    cout << sum << endl;
 }
