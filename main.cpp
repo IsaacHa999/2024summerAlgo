@@ -1,4 +1,4 @@
-// boj 10773 제로
+// boj 4949 균형잡힌 세상
 #pragma GCC optimize("O3")  //
 
 #include <bits/stdc++.h>
@@ -13,26 +13,47 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int K;
-    stack<int> s;
-    int sum = 0;
+    bool flag = true;
 
-    cin >> K;
+    // 온점 하나만 입력받을 때까지 계속 입력받기
+    while (true)
+    {
+        string str;
+        getline(cin, str);
 
-    for (int i = 0; i < K; i++) {
-        int num;
-        cin >> num;
-        if (num == 0) {
-            s.pop();
-        } else {
-            s.push(num);
+        if (str == ".")
+            break;
+
+        stack<char> s;
+        flag = true;
+
+        for (int i = 0; i < str.size(); i++)
+        {
+            if (str[i] == '(' || str[i] == '[')
+                s.push(str[i]);
+            else if (str[i] == ')')
+            {
+                if (s.empty() || s.top() != '(')
+                {
+                    flag = false;
+                    break;
+                }
+                s.pop();
+            }
+            else if (str[i] == ']')
+            {
+                if (s.empty() || s.top() != '[')
+                {
+                    flag = false;
+                    break;
+                }
+                s.pop();
+            }
         }
-    }
 
-    // 합 출력
-    for (int i = 0; !s.empty(); i++) {
-        sum += s.top();
-        s.pop();
+        if (flag && s.empty())
+            cout << "yes" << endl;
+        else
+            cout << "no" << endl;
     }
-    cout << sum << endl;
 }
