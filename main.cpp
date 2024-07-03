@@ -1,4 +1,4 @@
-// boj 4949 ±ÕÇüÀâÈù ¼¼»ó
+// boj 2609 ìµœëŒ€ê³µì•½ìˆ˜ì™€ ìµœì†Œê³µë°°ìˆ˜
 #pragma GCC optimize("O3")  //
 
 #include <bits/stdc++.h>
@@ -13,47 +13,10 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    bool flag = true;
+    int a, b;
+    cin >> a >> b;
+    int gcd = __gcd(a, b);
+    cout << gcd << endl;
+    cout << a * b / gcd << endl;
 
-    // ¿ÂÁ¡ ÇÏ³ª¸¸ ÀÔ·Â¹ÞÀ» ¶§±îÁö °è¼Ó ÀÔ·Â¹Þ±â
-    while (true)
-    {
-        string str;
-        getline(cin, str);
-
-        if (str == ".")
-            break;
-
-        stack<char> s;
-        flag = true;
-
-        for (int i = 0; i < str.size(); i++)
-        {
-            if (str[i] == '(' || str[i] == '[')
-                s.push(str[i]);
-            else if (str[i] == ')')
-            {
-                if (s.empty() || s.top() != '(')
-                {
-                    flag = false;
-                    break;
-                }
-                s.pop();
-            }
-            else if (str[i] == ']')
-            {
-                if (s.empty() || s.top() != '[')
-                {
-                    flag = false;
-                    break;
-                }
-                s.pop();
-            }
-        }
-
-        if (flag && s.empty())
-            cout << "yes" << endl;
-        else
-            cout << "no" << endl;
-    }
 }
