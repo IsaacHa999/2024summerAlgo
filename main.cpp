@@ -1,4 +1,4 @@
-// boj 2609 최대공약수와 최소공배수
+// boj 2751 수 정렬하기 2
 #pragma GCC optimize("O3")  //
 
 #include <bits/stdc++.h>
@@ -13,10 +13,19 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int a, b;
-    cin >> a >> b;
-    int gcd = __gcd(a, b);
-    cout << gcd << endl;
-    cout << a * b / gcd << endl;
+    int N;
+    cin >> N;
+    vector<int> v(N);
+
+    for (int i = 0; i < N; i++) {
+        cin >> v[i];
+    }
+
+    // v 를 정렬
+    sort(v.begin(), v.end());
+    // v 를 출력
+    for (int i = 0; i < N; i++) {
+        cout << v[i] << endl;
+    }
 
 }
