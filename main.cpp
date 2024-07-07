@@ -1,4 +1,4 @@
-// boj 2798 블랙잭
+// boj 10814 나이순 정렬
 #pragma GCC optimize("O3")  //
 
 #include <bits/stdc++.h>
@@ -13,27 +13,22 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int N, M;
-    cin >> N >> M;
-    vector<int> cards(N);
+    int N;
+    cin >> N;
+    vector<pair<int, string>> v(N);
     for (int i = 0; i < N; i++)
-        cin >> cards[i];
-
-    // 3개의 카드를 고르는 모든 경우의 수
-    int max = 0;
-    for (int i = 0; i < N - 2; i++)
     {
-        for (int j = i + 1; j < N - 1; j++)
-        {
-            for (int k = j + 1; k < N; k++)
-            {
-                int sum = cards[i] + cards[j] + cards[k];
-                if (sum <= M && sum > max)
-                    max = sum;
-            }
-        }
+        cin >> v[i].first >> v[i].second;
     }
 
+    // stable_sort : 정렬 전의 순서가 유지되는 정렬
+    stable_sort(v.begin(), v.end(), [](pair<int, string> a, pair<int, string> b) {
+        return a.first < b.first;
+    });
+
     // 출력
-    cout << max << endl;
+    for (int i = 0; i < N; i++)
+    {
+        cout << v[i].first << " " << v[i].second << endl;
+    }
 }
