@@ -1,8 +1,7 @@
-// boj 11725 트리의 부모 찾기
+// boj 9372 상근이의 여행
 #pragma GCC optimize("O3")  //
 
 #include <bits/stdc++.h>
-
 
 #define endl '\n'
 #define ll long long
@@ -13,41 +12,22 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int N;
-    cin >> N;
-    vector<vector<int>> adj(N + 1); // 인접리스트
-    vector<int> parent(N + 1);    // 부모노드
+    int T;
+    int N, M;
+    cin >> T;
 
-    // 트리 입력
-    for (int i = 0; i < N - 1; i++) // 트리의 간선
+    // MST의 성질을 이용하면, 최소 간선의 수는 N-1개이다.
+    // 따라서, N-1개의 간선을 선택하면 모든 정점을 연결할 수 있다.
+    // 따라서, N-1개의 간선을 선택하면, 최소 비행기 종류의 수를 구할 수 있다.
+    while (T--)
     {
-        int a, b;
-        cin >> a >> b;
-        adj[a].push_back(b);
-        adj[b].push_back(a);
-    }
-
-    // bfs
-    queue<int> q;
-    q.push(1);
-    parent[1] = 1;
-    while (!q.empty())
-    {
-        int cur = q.front();    // 현재 노드
-        q.pop();
-        for (int next : adj[cur])   // 인접노드
+        cin >> N >> M;
+        for (int i = 0; i < M; i++)
         {
-            if (parent[next] == 0)  // 방문하지 않은 노드
-            {
-                parent[next] = cur; // 부모노드 저장
-                q.push(next);    // 큐에 삽입
-            }
+            int a, b;
+            cin >> a >> b;
         }
-    }
-
-    // print
-    for (int i = 2; i <= N; i++)
-    {
-        cout << parent[i] << endl;
+        cout << N - 1 << endl;
     }
 }
+
