@@ -1,5 +1,5 @@
-// boj 9372 상근이의 여행
-#pragma GCC optimize("O3")  //
+// boj 11724 연결 요소의 개수
+#pragma GCC optimize("O3")
 
 #include <bits/stdc++.h>
 
@@ -12,22 +12,44 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int T;
     int N, M;
-    cin >> T;
+    cin >> N >> M;
+    vector<vector<int>> adj(N + 1);
+    vector<bool> visited(N + 1, false);
 
-    // MST의 성질을 이용하면, 최소 간선의 수는 N-1개이다.
-    // 따라서, N-1개의 간선을 선택하면 모든 정점을 연결할 수 있다.
-    // 따라서, N-1개의 간선을 선택하면, 최소 비행기 종류의 수를 구할 수 있다.
-    while (T--)
+    //
+    for (int i = 0; i < M; i++)
     {
-        cin >> N >> M;
-        for (int i = 0; i < M; i++)
-        {
-            int a, b;
-            cin >> a >> b;
-        }
-        cout << N - 1 << endl;
+        int u, v;
+        cin >> u >> v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
     }
-}
 
+    // BFS
+    int cnt = 0;
+    for (int i = 1; i <= N; i++)
+    {
+        if (visited[i])
+            continue;
+        cnt++;
+        queue<int> q;
+        q.push(i);
+        visited[i] = true;
+        while (!q.empty())
+        {
+            int cur = q.front();
+            q.pop();
+            for (int next : adj[cur])
+            {
+                if (visited[next])
+                    continue;
+                visited[next] = true;
+                q.push(next);
+            }
+        }
+    }
+
+    // Output
+    cout << cnt << endl;
+}
