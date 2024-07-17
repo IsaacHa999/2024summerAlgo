@@ -1,4 +1,4 @@
-// boj 10250 ACM 호텔
+// boj 2751 수 정렬하기 2
 
 #pragma GCC optimize("O3")
 
@@ -12,19 +12,15 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int T;
-    cin >> T;
-    while (T--) {
-        int H, W, N;
-        cin >> H >> W >> N;
-        int floor = N % H;
-        int room = N / H + 1;
-
-        if (floor == 0) {
-            floor = H;
-            room--;
-        }
-        cout << floor * 100 + room << endl;
+    int N;
+    cin >> N;
+    vector<int> v(N);
+    for (int i = 0; i < N; i++) {
+        cin >> v[i];
+    }
+    sort(v.begin(), v.end());
+    for (int i = 0; i < N; i++) {
+        cout << v[i] << endl;
     }
 }
 
