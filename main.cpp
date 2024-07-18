@@ -1,4 +1,4 @@
-// boj 10250 ACM 호텔
+// boj 11399 ATM
 
 #pragma GCC optimize("O3")
 
@@ -12,20 +12,25 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int T;
-    cin >> T;
-    while (T--) {
-        int H, W, N;
-        cin >> H >> W >> N;
-        int floor = N % H;
-        int room = N / H + 1;
-
-        if (floor == 0) {
-            floor = H;
-            room--;
-        }
-        cout << floor * 100 + room << endl;
+    int N;
+    cin >> N;
+    vector<int> v(N);
+    for (int i = 0; i < N; i++) {
+        cin >> v[i];
     }
+    sort(v.begin(), v.end());
+    vector<int> S;
+    S.push_back(v[0]);
+    for (int i = 1; i < N; i++) {
+        S.push_back(S[i - 1] + v[i]);
+    }
+    int sum = 0;
+    for (int i = 0; i < N; i++) {
+        sum += S[i];
+    }
+
+    // output
+    cout << sum << endl;
 }
 
 
