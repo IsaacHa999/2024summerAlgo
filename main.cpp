@@ -1,4 +1,4 @@
-// boj 11399 ATM
+// boj 2217 로프
 
 #pragma GCC optimize("O3")
 
@@ -14,24 +14,22 @@ int main() {
 
     int N;
     cin >> N;
-    vector<int> v(N);
+    vector<int> ropes(N);
+    int max_weight = 0;
+
     for (int i = 0; i < N; i++) {
-        cin >> v[i];
-    }
-    sort(v.begin(), v.end());
-    vector<int> S;
-    S.push_back(v[0]);
-    for (int i = 1; i < N; i++) {
-        S.push_back(S[i - 1] + v[i]);
-    }
-    int sum = 0;
-    for (int i = 0; i < N; i++) {
-        sum += S[i];
+        cin >> ropes[i];
     }
 
-    // output
-    cout << sum << endl;
+    // 내림차순 정렬
+    sort(ropes.begin(),ropes.end());
+    reverse(ropes.begin(),ropes.end());
+
+    // 최대 중량 구하기
+    for (int i = 0; i < N; i++) {
+        max_weight = max(max_weight, ropes[i] * (i + 1));
+    }
+
+    // 출력
+    cout << max_weight << endl;
 }
-
-
-
