@@ -1,4 +1,4 @@
-// boj 1744 수 묶기
+// boj 5635 ����
 #pragma GCC optimize("O3")
 
 #include <bits/stdc++.h>
@@ -11,50 +11,25 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int N;
-    cin >> N;
-    vector<int> pos, neg;
-    int one = 0;
-    bool iszero = false;
-
-    for (int i = 0; i < N; i++) {
-        int x;
-        cin >> x;
-        if (x == 1) one++;
-        else if (x > 0) pos.push_back(x);
-        else if (x < 0) neg.push_back(x);
-        else if (x == 0) iszero = true;
+    int n;
+    cin >> n;
+    vector<pair<string, tuple<int, int, int>>> v(n);
+    for (int i = 0; i < n; i++) {
+        string name;
+        int d, m, y;
+        cin >> name >> d >> m >> y;
+        v[i] = {name, {y, m, d}};
     }
-
-    // 양수는 큰 수끼리 곱하고 음수는 작은 수끼리 곱하면 된다.
-    sort(pos.begin(), pos.end(), greater<int>());
-    sort(neg.begin(), neg.end());
-
-    // 양수
-    int ans = 0;
-    for (int i = 0; i < pos.size(); i += 2) {
-        if (i + 1 < pos.size())
-            ans += pos[i] * pos[i + 1];
-        else ans += pos[i];
-    }
-
-    //음수: 0이 존재하고 홀수개면 0과 곱해야 한다, 0이 없으면 마지막 음수는 더해야 한다.
-    if (iszero) {   // 0이 존재하는 경우, 마지막 홀수는 더하지 않는다.
-        for (int i = 0; i < neg.size(); i += 2) {
-            if (i + 1 < neg.size())
-                ans += neg[i] * neg[i + 1];
+    sort(v.begin(), v.end(), [](const pair<string, tuple<int, int, int>> &a, const pair<string, tuple<int, int, int>> &b) {
+        if (get<0>(a.second) == get<0>(b.second)) {
+            if (get<1>(a.second) == get<1>(b.second)) {
+                return get<2>(a.second) < get<2>(b.second);
+            }
+            return get<1>(a.second) < get<1>(b.second);
         }
-    } else {
-        for (int i = 0; i < neg.size(); i += 2) {
-            if (i + 1 < neg.size())
-                ans += neg[i] * neg[i + 1];
-            else ans += neg[i];
-        }
-    }
+        return get<0>(a.second) < get<0>(b.second);
+    });
 
-    // 1은 더해준다.
-    ans += one;
-
-    // 출력
-    cout << ans << endl;
+    // min �̸�, max �̸� ���
+    cout << v[n - 1].first << endl << v[0].first << endl;
 }
