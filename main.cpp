@@ -1,4 +1,4 @@
-// boj 1439 뒤집기
+// boj 1138 한 줄로 서기
 #pragma GCC optimize("O3")
 
 #include <bits/stdc++.h>
@@ -12,47 +12,30 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    string s;
-    cin >> s;
+    int N;
+    cin >> N;
+    vector<int> arr(N);
+    vector<int> ans(N,-1);
+    for (int i = 0; i < N; i++)
+        cin >> arr[i];
 
-    // 간단하게 생각하면 0과 1의 연속된 구간의 개수를 세면 된다.
-    vector<int> simple;
-
-    int before = s[0] - '0';
-    simple.push_back(before);
-
-    for (int i = 0; i < s.size(); i++) {
-        int num = s[i] - '0';
-
-        if (before != num) {
-            simple.push_back(num);
-            before = num;
+    // arr[i] + 1 번째 -1위치에 i+1를 넣는다.
+    for (int i = 0; i < N; i++) {
+        int pos = arr[i] + 1;   // ex) pos = 2 + 1 = 3
+        // -1이 pos 번째 나오는 위치에 i+1을 넣는다.
+        int count = 0;
+        for (int j = 0; j < N; j++) {
+            if (ans[j] == -1) {
+                count++;
+                if (count == pos) {
+                    ans[j] = i+1;
+                    break;
+                }
+            }
         }
     }
 
-    // // debug code : simple 배열 출력
-    // for (int i = 0; i < simple.size(); i++) {
-    //     cout << simple[i] << " ";
-    // }
-    // cout << endl;
-
-    // 0과 1이 바뀌는 순간이 없다면
-    if (simple.size() == 0) {
-        cout << 0 << endl;
-        return 0;
-    }
-
-    // 0과 1이 바뀌는 순간이 있다면, 더 작은 개수를 출력
-    int cnt = 0;
-    for (int i = 0; i < simple.size(); i++) {
-        if (simple[i] == 0) {
-            cnt++;
-        }
-    }
-    //
-    if (cnt > simple.size() - cnt) {
-        cout << simple.size() - cnt << endl;
-    } else {
-        cout << cnt << endl;
-    }
+    // 출력
+    for (int i = 0; i < N; i++)
+        cout << ans[i] << " ";
 }
