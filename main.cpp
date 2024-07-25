@@ -1,4 +1,4 @@
-// boj 1138 한 줄로 서기
+// boj 2891 카약과 강풍
 #pragma GCC optimize("O3")
 
 #include <bits/stdc++.h>
@@ -14,28 +14,42 @@ int main()
 
     int N;
     cin >> N;
-    vector<int> arr(N);
-    vector<int> ans(N,-1);
-    for (int i = 0; i < N; i++)
-        cin >> arr[i];
+    int S, R;
+    cin >> S >> R;
 
-    // arr[i] + 1 번째 -1위치에 i+1를 넣는다.
-    for (int i = 0; i < N; i++) {
-        int pos = arr[i] + 1;   // ex) pos = 2 + 1 = 3
-        // -1이 pos 번째 나오는 위치에 i+1을 넣는다.
-        int count = 0;
-        for (int j = 0; j < N; j++) {
-            if (ans[j] == -1) {
-                count++;
-                if (count == pos) {
-                    ans[j] = i+1;
-                    break;
-                }
+    vector<int> team(N+1,1);    // 카약의 개수
+    team[0] = -1;
+
+    for (int i = 0; i < S; i++) {
+        int num;
+        cin >> num;
+        team[num] = 0;
+    }
+
+    for (int i = 0; i < R; i++) {
+        int num;
+        cin >> num;
+        team[num]++;
+    }
+
+    // 카약이 부족한 팀을 찾아서 카약을 빌려준다.
+    for (int i = 1; i <= N; i++) {
+        if (team[i] == 0) {
+            if (team[i - 1] == 2) {
+                team[i - 1]--;
+                team[i]++;
+            }
+            else if (team[i + 1] == 2) {
+                team[i + 1]--;
+                team[i]++;
             }
         }
     }
 
-    // 출력
-    for (int i = 0; i < N; i++)
-        cout << ans[i] << " ";
+    // team 중 0의 개수를 출력
+    int count_team = 0;
+    for (int i = 1; i <= N; i++) {
+        if (team[i] == 0) count_team++;
+    }
+    cout << count_team << endl;
 }
