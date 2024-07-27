@@ -1,4 +1,4 @@
-// boj 2891 카약과 강풍
+// boj 1202 보석 도둑
 #pragma GCC optimize("O3")
 
 #include <bits/stdc++.h>
@@ -12,44 +12,43 @@ int main()
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int N;
-    cin >> N;
-    int S, R;
-    cin >> S >> R;
+    int N, K;
+    cin >> N >> K;
+    vector<pair<int, int>> jewel(N);    // 무게, 가치
+    vector<int> bag(K);
 
-    vector<int> team(N+1,1);    // 카약의 개수
-    team[0] = -1;
+    for (int i = 0; i < N; i++)
+        cin >> jewel[i].first >> jewel[i].second;
 
-    for (int i = 0; i < S; i++) {
-        int num;
-        cin >> num;
-        team[num] = 0;
-    }
+    // 가방에 담을 수 있는 무게
+    for (int i = 0; i < K; i++)
+        cin >> bag[i];
 
-    for (int i = 0; i < R; i++) {
-        int num;
-        cin >> num;
-        team[num]++;
-    }
+    // 무게 기준 오름차순 정렬
+    sort(jewel.begin(), jewel.end());   //
+    sort(bag.begin(), bag.end());
 
-    // 카약이 부족한 팀을 찾아서 카약을 빌려준다.
-    for (int i = 1; i <= N; i++) {
-        if (team[i] == 0) {
-            if (team[i - 1] == 2) {
-                team[i - 1]--;
-                team[i]++;
-            }
-            else if (team[i + 1] == 2) {
-                team[i + 1]--;
-                team[i]++;
-            }
+    // 가방에 담을 수 있는 무게가 작은 것부터 확인
+    priority_queue<int> pq;
+    ll ans = 0;
+    int idx = 0;
+    for (int i = 0; i < K; i++)
+    {
+        // 가방에 담을 수 있는 무게보다 작은 보석들을 모두 pq에 넣음
+        while (idx < N && jewel[idx].first <= bag[i])
+        {
+            pq.push(jewel[idx].second);
+            idx++;
+        }
+
+        // pq에 있는 보석들 중 가치가 가장 큰 것을 선택
+        if (!pq.empty())
+        {
+            ans += pq.top();
+            pq.pop();
         }
     }
 
-    // team 중 0의 개수를 출력
-    int count_team = 0;
-    for (int i = 1; i <= N; i++) {
-        if (team[i] == 0) count_team++;
-    }
-    cout << count_team << endl;
+    // 출력
+    cout << ans << endl;
 }
