@@ -1,28 +1,35 @@
-// boj 10809 알파벳 찾기
-#pragma GCC optimize("O3")
-
-#include <bits/stdc++.h>
-
-#define endl '\n'
-#define ll long long
+#include <cstdio>
+#include <vector>
+#include <algorithm>
+#include <iostream>
 using namespace std;
 
+void printV(vector<int> &v)
+{
+    for(int i = 0; i < v.size(); i++)
+        cout << v[i] << " ";
+    cout << "\n";
+}
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+    int a[3] = {1, 2, 3};
+    vector<int> v;
+    for(int i = 0; i < 3; i++)
+        v.push_back(a[i]);
+    //1, 2, 3부터 오름차순으로 순열을 뽑습니다.
 
-    string S;
-    cin >> S;
-    vector<int> alpha(26, -1);
+    do
+        printV(v);
+    while(next_permutation(v.begin(), v.end()));
 
-    for (int i = 0; i < S.size(); i++) {
-        alpha[i] = S.find('a' + i);
-    }
+    cout << "-------------" << '\n';
+    v.clear();
+    for(int i = 2; i >= 0; i--)
+        v.push_back(a[i]);
+    //3, 2, 1부터 내림차순으로 순열을 뽑습니다.
+    do
+        printV(v);
+    while(prev_permutation(v.begin(), v.end()));
 
-    // output
-    for (int i = 0; i < 26; i++) {
-        cout << alpha[i] << ' ';
-    }
-
+    return 0;
 }
