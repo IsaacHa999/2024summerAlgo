@@ -1,35 +1,39 @@
-#include <cstdio>
-#include <vector>
-#include <algorithm>
-#include <iostream>
+// boj 1065 한수
+#pragma GCC optimize("O3")
+
+#include <bits/stdc++.h>
+
+#define endl '\n'
+#define ll long long
 using namespace std;
 
-void printV(vector<int> &v)
+bool isHan(int n)
 {
-    for(int i = 0; i < v.size(); i++)
-        cout << v[i] << " ";
-    cout << "\n";
+    if (n < 100)
+        return true;
+    if (n == 1000)
+        return false;
+    int a = n % 10;
+    n /= 10;
+    int b = n % 10;
+    n /= 10;
+    int c = n % 10;
+    return a - b == b - c;
 }
+
 int main()
 {
-    int a[3] = {1, 2, 3};
-    vector<int> v;
-    for(int i = 0; i < 3; i++)
-        v.push_back(a[i]);
-    //1, 2, 3부터 오름차순으로 순열을 뽑습니다.
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-    do
-        printV(v);
-    while(next_permutation(v.begin(), v.end()));
+    int N;
+    cin >> N;
+    int cnt = 0;
 
-    cout << "-------------" << '\n';
-    v.clear();
-    for(int i = 2; i >= 0; i--)
-        v.push_back(a[i]);
-    //3, 2, 1부터 내림차순으로 순열을 뽑습니다.
-    do
-        printV(v);
-    while(prev_permutation(v.begin(), v.end()));
+    for (int i = 1; i <= N; i++) {
+        if (isHan(i))
+            cnt++;
+    }
 
-    return 0;
+    cout << cnt << endl;
 }
