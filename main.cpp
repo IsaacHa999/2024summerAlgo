@@ -1,27 +1,54 @@
-#include <iostream>
+// boj 3986 좋은 단어
+#pragma GCC optimize("O3")
+
+#include <bits/stdc++.h>
+
+#define endl '\n'
+#define ll long long
 using namespace std;
 
-int main() {
-    ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-    string s;
-    cin >> s;
+// 함수 선언
 
-    int a = 0, ans = s.size();
+// 전역 변수
 
-    // count 'a'
-    for(auto c : s)
-        if(c=='a') a++;
+int main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-    // sliding window, cnt: count 'a', temp: count 'b'
-    for(int i=0; i<s.size(); i++){
-        int cnt = a, temp = 0;
-        for(int j=i; j<i+s.size(); j++){
-            if(cnt==0) break;   //
-            if(s[j%s.size()]=='b') temp++, cnt--;
-            else cnt--;
+    int N;
+    cin >> N;
+    int ans = 0;
+
+    //
+    for (int i = 0; i < N; i++) {
+        string s;
+        cin >> s;
+        stack<char> st;
+        for (int j = 0; j < s.size(); j++) {
+            if (st.empty()) {
+                st.push(s[j]);
+            }
+            else {
+                if (st.top() == s[j]) {
+                    st.pop();
+                }
+                else {
+                    st.push(s[j]);
+                }
+            }
         }
-        ans = min(ans,temp);
+
+        // // debug
+        // while (!s.empty())
+        //     cout << st.top() << " ";
+
+        // 스택이 비어있으면 좋은 단어
+        if (st.empty())
+            ans++;
     }
-    cout << ans << "\n";
-    return 0;
+
+    cout << ans << endl;
 }
+
+// 함수 정의
