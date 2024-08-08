@@ -1,54 +1,33 @@
-// boj 3986 좋은 단어
-#pragma GCC optimize("O3")
-
 #include <bits/stdc++.h>
 
 #define endl '\n'
 #define ll long long
 using namespace std;
 
-// 함수 선언
-
-// 전역 변수
-
-int main()
-{
+int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int N;
-    cin >> N;
-    int ans = 0;
+    string s;
+    cin >> s;
 
-    //
-    for (int i = 0; i < N; i++) {
-        string s;
-        cin >> s;
-        stack<char> st;
-        for (int j = 0; j < s.size(); j++) {
-            if (st.empty()) {
-                st.push(s[j]);
-            }
-            else {
-                if (st.top() == s[j]) {
-                    st.pop();
-                }
-                else {
-                    st.push(s[j]);
-                }
-            }
+    string bomb;
+    cin >> bomb;
+
+    string ans;
+
+    for (char c : s) {
+        ans.push_back(c);
+        if (ans.size() >= bomb.size() && ans.substr(ans.size() - bomb.size(), bomb.size()) == bomb) {
+            ans.erase(ans.size() - bomb.size(), bomb.size());   //
         }
-
-        // // debug
-        // while (!s.empty())
-        //     cout << st.top() << " ";
-
-        // 스택이 비어있으면 좋은 단어
-        if (st.empty())
-            ans++;
     }
 
-    cout << ans << endl;
-}
+    if (ans.empty()) {
+        cout << "FRULA" << endl;
+    } else {
+        cout << ans << endl;
+    }
 
-// 함수 정의
+    return 0;
+}
