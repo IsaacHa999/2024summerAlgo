@@ -1,36 +1,67 @@
-// boj 9663 N-Queen
-#include <iostream>
-#include <cmath>
+#include <bits/stdc++.h>
+
+#define endl '\n'
+#define ll long long
 using namespace std;
-int col[16];
-int n;
-int ans = 0;
-void queen(int x){
-    if(n == x){
-        ans++; // 카운트 +1
-    }else{
-        for (int i = 0; i < n;i++){
-            col[x] = i; // 퀸의 위치를 정함
-            bool can = true;
-            for (int j = 0; j < x;j++){
-                if(col[x] == col[j] || abs(col[x] - col[j]) == x - j){
-                    //정한 위치의 퀸이 위쪽 퀸과 충돌하는 지 확인
-                    // 1. 같은 행에 있는가
-                    // 2. 대각선에 있는가
-                    can = false; //충돌하면 다른 열의 위치로 놓아야함
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int T;
+    cin >> T;
+
+    for (int i = 0; i < T; i++) {
+        string s;
+        cin >> s;
+
+        int left = 0, right = s.size() - 1;
+        int ans = 0;  // 초기값 0: 회문
+
+        bool isoneCheck = false;
+
+        while (left < right) {
+            if (s[left] == s[right]) {
+                left++;
+                right--;
+            } else {
+                // 유사 회문 체크
+                if (!isoneCheck) {
+                    if (s[left + 1] == s[right] && left + 1 <= right) {
+                        int temp_left = left + 1, temp_right = right;
+                        while (temp_left < temp_right && s[temp_left] == s[temp_right]) {
+                            temp_left++;
+                            temp_right--;
+                        }
+                        if (temp_left >= temp_right) {
+                            ans = 1;
+                            break;
+                        }
+                    }
+
+                    if (s[left] == s[right - 1] && left <= right - 1) {
+                        int temp_left = left, temp_right = right - 1;
+                        while (temp_left < temp_right && s[temp_left] == s[temp_right]) {
+                            temp_left++;
+                            temp_right--;
+                        }
+                        if (temp_left >= temp_right) {
+                            ans = 1;
+                            break;
+                        }
+                    }
+
+                    ans = 2;
+                    break;
+                } else {
+                    ans = 2;
                     break;
                 }
             }
-            if(can){ // 충돌하지 않는다면 다음 행으로 넘어감.
-                queen(x + 1);
-            }
         }
-    }
-} //백트래킹
 
-int main(){
-    cin >> n;
-    queen(0);
-    cout << ans;
+        cout << ans << endl;
+    }
+
     return 0;
-} // 1.5h
+}
