@@ -1,7 +1,4 @@
-// boj 5639 이진 검색 트리
-/*
- * binary search tree를 pre-order로 주어지면 post-order로 변환하는 문제
- */
+// boj
 #pragma GCC optimize("O3")
 
 #include <bits/stdc++.h>
@@ -10,23 +7,19 @@
 #define ll long long
 using namespace std;
 
+// 함수 선언
+
+// 전역 변수
+
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    // pre-order의 길이를 모름, 입력이 끝날 때까지 계속 받아야 함
-    vector<int> pre_order;
-    int n;
-    while ()
-        pre_order.push_back(n);
-
-    // pre-order를 post-order로 변환
+    // 변수 선언, 초기화
 
 
-    // 출력
-    for (int i = 0; i < pre_order.size(); i++)
-        cout << pre_order[i] << endl;
-
-
+    // 로직
 }
+
+// 함수 정의
