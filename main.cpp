@@ -1,4 +1,3 @@
-// boj 1316 그룹 단어 체커
 #pragma GCC optimize("O3")
 
 #include <bits/stdc++.h>
@@ -7,41 +6,27 @@
 #define ll long long
 using namespace std;
 
-// 함수 선언
-bool isGroupWord(string word);
-
-// 전역 변수
-
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    // 변수 선언, 초기화
-    int N;
-    cin >> N;
-    vector<string> words(N);
-    int count = 0;
+    int T;
+    cin >> T;
+    cin.ignore();  // 남아있는 개행 문자 제거
 
-    for (int i = 0 ;i < N; i++)
-        cin >> words[i];
+    for (int i = 0; i < T; i++) {
+        string line;
+        getline(cin, line);  // 한 줄 전체를 읽음
+        stringstream ss(line);
+        string word;
 
-    for (int i = 0; i < N; i++) {
-        if(isGroupWord(words[i]))
-            count++;
+        while (ss >> word) {  // 공백을 기준으로 단어를 읽음
+            reverse(word.begin(), word.end());
+            cout << word << ' ';
+        }
+        cout << endl;  // 각 테스트 케이스 후 줄바꿈
     }
 
-    // 출력
-    cout << count << endl;
-}
-
-// 함수 정의
-bool isGroupWord(string word) {
-    vector<bool> check(26, false);
-    for (int i = 0; i < word.size(); i++) {
-        if (check[word[i] - 'a']) return false;
-        check[word[i] - 'a'] = true;
-        while (i + 1 < word.size() && word[i] == word[i + 1]) i++;
-    }
-    return true;
+    return 0;
 }
