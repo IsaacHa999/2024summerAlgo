@@ -1,4 +1,4 @@
-// boj 2839 설탕 배달
+// boj 11651 좌표 정렬하기 2
 #pragma GCC optimize("O3")
 
 #include <bits/stdc++.h>
@@ -19,27 +19,18 @@ int main()
     // 변수 선언, 초기화
     int N;
     cin >> N;
-    int count = 0;
-
-    // 로직
-    while (1) {
-        if (N % 5 == 0) {
-            count += N / 5;
-            break;
-        }
-        else {
-            N -= 3;
-            count++;
-        }
-        if (N < 0) {
-            count = -1;
-            break;
-        }
+    vector<pair<int, int>> v(N);
+    for (int i = 0; i < N; i++) {
+        cin >> v[i].second >> v[i].first;   // y, x
     }
 
-    // 출력
-    cout << count << endl;
+    // 로직
+    sort(v.begin(), v.end());
 
+    // 출력
+    for (int i = 0; i < N; i++) {
+        cout << v[i].second << ' ' << v[i].first << endl;
+    }
 }
 
 // 함수 정의
