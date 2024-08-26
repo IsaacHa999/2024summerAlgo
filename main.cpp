@@ -17,19 +17,11 @@ int main()
     cin.tie(nullptr);
 
     // 변수 선언, 초기화
-    int a, b, c;
+    long long a, b, c;
+    cin >> a >> b >> c;
 
-    while(1) {
-        cin >> a >> b >> c;
-        if(a == 0 && b == 0 && c == 0) break;
-
-        if (a * a + b * b == c * c || a * a + c * c == b * b || b * b + c * c == a * a) {
-            cout << "right" << endl;
-        } else {
-            cout << "wrong" << endl;
-        }
-    }
     // 로직
+    cout << a + b + c ;
 }
 
 // 함수 정의
