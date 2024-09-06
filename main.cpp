@@ -1,12 +1,12 @@
-// boj 1764 듣보잡
+// boj 17219 비밀번호 찾기
 /*
- * 자료구조: set, map, unordered_map, unordered_set
- * 1. set: 중복을 허용하지 않는 자료구조
- * 2. map: key-value 쌍으로 이루어진 자료구조
- * 3. unordered_map: map과 같은 기능을 하지만, 해시함수를 사용하여 더 빠르게 동작
- * 4. unordered_set: set과 같은 기능을 하지만, 해시함수를 사용하여 더 빠르게 동작
- *
- * 또는 vector를 이용하여 풀 수 있음 (이 문제는 vector를 이용하여 풀이), binary_search를 이용하여 풀이
+주제
+자료 구조 ??
+해시를 사용한 집합과 맵 ??
+
+예제 입력
+
+예제 출력
  */
 #pragma GCC optimize("O3")
 
@@ -26,32 +26,23 @@ int main()
     cin.tie(nullptr);
 
     // 변수 선언, 초기화
-    int N, M;
-    cin >> N >> M;
-    vector<string> v1(N), v2(M);
-    int cnt = 0;
-    vector<string> ans;
-    for (int i = 0; i < N; i++)
-        cin >> v1[i];
-
-    // 로직
-    sort(v1.begin(), v1.end());
-
-    for (int i = 0; i < M; i++) {
-        cin >> v2[i];
-        if (binary_search(v1.begin(), v1.end(), v2[i])) {
-            cnt++;
-            ans.push_back(v2[i]);
-        }
+    int n, m;
+    cin >> n >> m;
+    map<string, string> mp;
+    for (int i = 0; i < n; i++)
+    {
+        string a, b;
+        cin >> a >> b;
+        mp[a] = b;
+    }
+    for (int i = 0; i < m; i++)
+    {
+        string a;
+        cin >> a;
+        cout << mp[a] << endl;
     }
 
-    // 출력
-    cout << cnt << endl;
-    sort(ans.begin(), ans.end());
-    for (auto& i : ans)
-        cout << i << endl;
-
-
+    // 로직
 }
 
 // 함수 정의
