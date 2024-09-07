@@ -1,13 +1,12 @@
-// boj 17219 비밀번호 찾기
+// boj 1927 최소 힙
 /*
-주제
-자료 구조 ??
-해시를 사용한 집합과 맵 ??
+최소 힙: 부모 노드의 값이 자식 노드의 값보다 작은 완전 이진 트리
+구현: 우선순위 큐 사용
+특징: 가장 작은 값이 루트에 위치
 
-예제 입력
-
-예제 출력
- */
+1. 입력값이 0이면 가장 작은 값을 출력하고 제거
+2. 입력값이 0이 아니면 우선순위 큐에 삽입
+*/
 #pragma GCC optimize("O3")
 
 #include <bits/stdc++.h>
@@ -26,23 +25,28 @@ int main()
     cin.tie(nullptr);
 
     // 변수 선언, 초기화
-    int n, m;
-    cin >> n >> m;
-    map<string, string> mp;
-    for (int i = 0; i < n; i++)
-    {
-        string a, b;
-        cin >> a >> b;
-        mp[a] = b;
-    }
-    for (int i = 0; i < m; i++)
-    {
-        string a;
-        cin >> a;
-        cout << mp[a] << endl;
-    }
+    int N;
+    cin >> N;
+    priority_queue<int, vector<int>, greater<int>> pq;
 
     // 로직
+    while (N--)
+    {
+        int x;
+        cin >> x;
+        if (x == 0)
+        {
+            if (pq.empty())
+                cout << 0 << endl;
+            else
+            {
+                cout << pq.top() << endl;
+                pq.pop();
+            }
+        }
+        else
+            pq.push(x);
+    }
 }
 
 // 함수 정의
