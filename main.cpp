@@ -1,12 +1,4 @@
-// boj 1927 최소 힙
-/*
-최소 힙: 부모 노드의 값이 자식 노드의 값보다 작은 완전 이진 트리
-구현: 우선순위 큐 사용
-특징: 가장 작은 값이 루트에 위치
-
-1. 입력값이 0이면 가장 작은 값을 출력하고 제거
-2. 입력값이 0이 아니면 우선순위 큐에 삽입
-*/
+// boj 7287 등록
 #pragma GCC optimize("O3")
 
 #include <bits/stdc++.h>
@@ -25,28 +17,11 @@ int main()
     cin.tie(nullptr);
 
     // 변수 선언, 초기화
-    int N;
-    cin >> N;
-    priority_queue<int, vector<int>, greater<int>> pq;
+    // 자신이 백준 온라인 저지(BOJ)에서 맞은 문제의 수
+    cout << "220" << endl;
+    cout << "glad5441" << endl;
 
     // 로직
-    while (N--)
-    {
-        int x;
-        cin >> x;
-        if (x == 0)
-        {
-            if (pq.empty())
-                cout << 0 << endl;
-            else
-            {
-                cout << pq.top() << endl;
-                pq.pop();
-            }
-        }
-        else
-            pq.push(x);
-    }
 }
 
 // 함수 정의
