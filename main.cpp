@@ -1,4 +1,5 @@
-// boj 7287 등록
+// boj 10807 개수 세기
+// 구현
 #pragma GCC optimize("O3")
 
 #include <bits/stdc++.h>
@@ -17,10 +18,19 @@ int main()
     cin.tie(nullptr);
 
     // 변수 선언, 초기화
-    // 자신이 백준 온라인 저지(BOJ)에서 맞은 문제의 수
-    cout << "220" << endl;
-    cout << "glad5441" << endl;
+    int n, v, cnt = 0;
+    cin >> n;
+    vector<int> arr(n);
 
+    for (int i = 0; i < n; i++)
+        cin >> arr[i];
+
+    // 입력 및 처리
+    cin >> v;
+
+    cnt = count(arr.begin(), arr.end(), v);
+
+    cout << cnt << endl;
     // 로직
 }
 
