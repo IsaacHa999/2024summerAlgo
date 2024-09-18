@@ -1,4 +1,4 @@
-// boj 2667 단지번호붙이기
+// boj 10828 스택
 #pragma GCC optimize("O3")
 
 #include <bits/stdc++.h>
@@ -8,7 +8,6 @@
 using namespace std;
 
 // 함수 선언
-
 
 // 전역 변수
 
@@ -20,53 +19,36 @@ int main()
     // 변수 선언, 초기화
     int n;
     cin >> n;
-    vector<string> map(n);
-    for (int i = 0; i < n; i++)
-        cin >> map[i];
-
-    int cnt = 0;    // 단지 수
-    vector<int> ans;    // 단지별 집 수
+    stack<int> s;
 
     // 로직
-    vector<pair<int, int>> dir = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
-    queue<pair<int, int>> q;
-    for (int i = 0; i < n; i++)
-        for (int j = 0; j < n; j++)
-        {
-            if (map[i][j] == '1')
-            {
-                cnt++;
-                q.push({i, j});
-                map[i][j] = '0';
-                int house = 1;  // 집 수
-                while (!q.empty())
-                {
-                    auto [x, y] = q.front();
-                    q.pop();
-                    for (auto [dx, dy] : dir)
-                    {
-                        int nx = x + dx;
-                        int ny = y + dy;
-                        if (nx < 0 || nx >= n || ny < 0 || ny >= n)
-                            continue;
-                        if (map[nx][ny] == '1')
-                        {
-                            house++;
-                            q.push({nx, ny});
-                            map[nx][ny] = '0';
-                        }
-                    }
-                }
-                ans.push_back(house);
+    for (int i = 0; i < n; i++) {
+        string cmd;
+        cin >> cmd;
+
+        if (cmd == "push") {
+            int num;
+            cin >> num;
+            s.push(num);
+        } else if (cmd == "pop") {
+            if (s.empty()) {
+                cout << -1 << endl;
+            } else {
+                cout << s.top() << endl;
+                s.pop();
+            }
+        } else if (cmd == "size") {
+            cout << s.size() << endl;
+        } else if (cmd == "empty") {
+            cout << s.empty() << endl;
+        } else if (cmd == "top") {
+            if (s.empty()) {
+                cout << -1 << endl;
+            } else {
+                cout << s.top() << endl;
             }
         }
-
-    // 출력
-    cout << cnt << endl;
-    sort(ans.begin(), ans.end());
-    for (int i = 0; i < ans.size(); i++)
-        cout << ans[i] << endl;
-
+    }
 }
 
 // 함수 정의
