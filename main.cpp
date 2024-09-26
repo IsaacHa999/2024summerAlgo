@@ -1,4 +1,4 @@
-// boj 2743 단어 길이 재기
+// boj 117118   문자열 길이 구하기
 #pragma GCC optimize("O3")
 
 #include <bits/stdc++.h>
@@ -17,10 +17,15 @@ int main()
     cin.tie(nullptr);
 
     // 변수 선언, 초기화
-    string s;
-    cin >> s;
+    while (true)
+    {
+        string str;
+        getline(cin, str);
+        cout << str << endl;
+        if (str == "")
+            break;
 
-    cout << s.size() << endl;
+    }
 
     // 로직
 }
