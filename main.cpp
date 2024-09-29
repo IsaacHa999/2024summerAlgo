@@ -1,4 +1,4 @@
-// boj 2193 이친수
+// boj 11053 가장 긴 증가하는 부분 수열
 #pragma GCC optimize("O3")
 
 #include <bits/stdc++.h>
@@ -19,17 +19,23 @@ int main()
     // 변수 선언, 초기화
     int n;
     cin >> n;
-    ll dp[91][2] = {0,};
-    dp[1][1] = 1;
+    vector<int> arr(n);
+    vector<int> dp(n, 1);   // dp[i] = i번째 수를 마지막으로 하는 가장 긴 증가하는 부분 수열의 길이
+    for (int i = 0; i < n; i++)
+        cin >> arr[i];
 
-    // 입력 및 출력
-    for (int i = 2; i <= n; i++) {
-        dp[i][0] = dp[i - 1][0] + dp[i - 1][1];
-        dp[i][1] = dp[i - 1][0];
+    // 입력 및 처리
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < i; j++)
+        {
+            if (arr[i] > arr[j])
+                dp[i] = max(dp[i], dp[j] + 1);
+        }
     }
-    cout << dp[n][0] + dp[n][1] << endl;
 
-    //
+    // 출력
+    cout << *max_element(dp.begin(), dp.end()) << endl;
 
     // 로직
 }
