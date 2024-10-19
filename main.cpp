@@ -1,4 +1,4 @@
-// boj
+// boj 16956 늑대와 양
 #pragma GCC optimize("O3")
 
 #include <bits/stdc++.h>
@@ -17,12 +17,62 @@ int main()
     cin.tie(nullptr);
 
     // 변수 선언, 초기화
-    int n;
-    cin >> n;
-    for (int i = 0; i < n; i++) {
-        string str;
-        cin >> str;
-        cout << str[0] << str[str.size() - 1] << endl;
+    int r, c;
+    cin >> r >> c;
+    vector<string> board(r);
+    for (int i = 0; i < r; i++)
+        cin >> board[i];
+
+    // 로직
+    bool isPossible = true;
+    for (int i = 0; i < r; i++)
+    {
+        for (int j = 0; j < c; j++)
+        {
+            if (board[i][j] == 'W')
+            {
+                if (i > 0 && board[i - 1][j] == 'S')
+                {
+                    isPossible = false;
+                    break;
+                }
+                if (i < r - 1 && board[i + 1][j] == 'S')
+                {
+                    isPossible = false;
+                    break;
+                }
+                if (j > 0 && board[i][j - 1] == 'S')
+                {
+                    isPossible = false;
+                    break;
+                }
+                if (j < c - 1 && board[i][j + 1] == 'S')
+                {
+                    isPossible = false;
+                    break;
+                }
+            }
+        }
+        if (!isPossible)
+            break;
+    }
+    // 출력
+    if (!isPossible)
+    {
+        cout << 0 << endl;
+        return 0;
+    }
+    cout << 1 << endl;
+    for (int i = 0; i < r; i++)
+    {
+        for (int j = 0; j < c; j++)
+        {
+            if (board[i][j] == '.')
+                cout << 'D';
+            else
+                cout << board[i][j];
+        }
+        cout << endl;
     }
 
     // 로직
