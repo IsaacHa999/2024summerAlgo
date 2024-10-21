@@ -1,81 +1,69 @@
-// boj 16956 늑대와 양
 #pragma GCC optimize("O3")
 
 #include <bits/stdc++.h>
 
 #define endl '\n'
-#define ll long long
 using namespace std;
 
-// 함수 선언
-
-// 전역 변수
+// Direction arrays for moving up, down, left, right
+int dx[4] = {1, 0, -1, 0};
+int dy[4] = {0, 1, 0, -1};
 
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    // 변수 선언, 초기화
-    int r, c;
-    cin >> r >> c;
-    vector<string> board(r);
-    for (int i = 0; i < r; i++)
-        cin >> board[i];
+    // Variable declaration and initialization
+    int n, m;
+    cin >> n >> m;
 
-    // 로직
-    bool isPossible = true;
-    for (int i = 0; i < r; i++)
-    {
-        for (int j = 0; j < c; j++)
-        {
-            if (board[i][j] == 'W')
-            {
-                if (i > 0 && board[i - 1][j] == 'S')
-                {
-                    isPossible = false;
-                    break;
-                }
-                if (i < r - 1 && board[i + 1][j] == 'S')
-                {
-                    isPossible = false;
-                    break;
-                }
-                if (j > 0 && board[i][j - 1] == 'S')
-                {
-                    isPossible = false;
-                    break;
-                }
-                if (j < c - 1 && board[i][j + 1] == 'S')
-                {
-                    isPossible = false;
-                    break;
-                }
+    vector<vector<char>> campus(n, vector<char>(m));
+    pair<int, int> hero; // Position of 'I'
+
+    // Input campus data
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            cin >> campus[i][j];
+
+            if (campus[i][j] == 'I') { // Find hero's position
+                hero = {i, j};
             }
         }
-        if (!isPossible)
-            break;
     }
-    // 출력
-    if (!isPossible)
-    {
-        cout << 0 << endl;
-        return 0;
-    }
-    cout << 1 << endl;
-    for (int i = 0; i < r; i++)
-    {
-        for (int j = 0; j < c; j++)
-        {
-            if (board[i][j] == '.')
-                cout << 'D';
-            else
-                cout << board[i][j];
+
+    int countPerson = 0;
+
+    // BFS
+    queue<pair<int, int>> q;
+    vector<vector<int>> visited(n, vector<int>(m, 0)); // Initialize visited array
+    q.push(hero);
+    visited[hero.first][hero.second] = 1;
+
+    while (!q.empty()) { // Use !q.empty() for BFS
+        pair<int, int> front = q.front();
+        q.pop();
+
+        // Check if current position contains a person 'P'
+        if (campus[front.first][front.second] == 'P')
+            countPerson++;
+
+        // Explore 4 directions
+        for (int i = 0; i < 4; i++) {
+            int x = front.first + dx[i];
+            int y = front.second + dy[i];
+
+            // Check bounds and if not visited and not a wall 'X'
+            if (x >= 0 && x < n && y >= 0 && y < m && !visited[x][y] && campus[x][y] != 'X') {
+                q.push({x, y});
+                visited[x][y] = 1;
+            }
         }
-        cout << endl;
     }
 
-    // 로직
+    // Output the result
+    if (countPerson > 0)
+        cout << countPerson << endl;
+    else
+        cout << "TT" << endl; // Output "TT" if no person 'P' is found
 }
-
-// 함수 정의
