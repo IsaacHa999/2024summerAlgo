@@ -10,6 +10,7 @@ using namespace std;
 // 함수 선언
 
 // 전역 변수
+//
 
 int main()
 {
